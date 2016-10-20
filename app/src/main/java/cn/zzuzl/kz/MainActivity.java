@@ -27,9 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zzuzl.kz.adapter.PicTxtAdapter;
+import cn.zzuzl.kz.vo.PicTxtVO;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static final String TAG = "MainActivity";
+
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -45,8 +48,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                // 切换到nfc activity
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, NFCActivity.class);
+                startActivity(intent);
+                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
         initConvenientBanner();
 
-
+        initRecycleView();
     }
 
     // 初始化图片轮播
@@ -85,25 +91,24 @@ public class MainActivity extends AppCompatActivity
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
                 //设置指示器的方向
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
-        //设置翻页的效果，不需要翻页效果可用不设
-        //.setPageTransformer(Transformer.DefaultTransformer);    集成特效之后会有白屏现象，新版已经分离，如果要集成特效的例子可以看Demo的点击响应。
-        //convenientBanner.setManualPageable(false);//设置不能手动影响
     }
 
     // 初始化水平滚动列表
     private void initRecycleView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new PicTxtAdapter(null);
+        List<PicTxtVO> dataSet = new ArrayList<PicTxtVO>();
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_0));
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_1));
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_2));
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_3));
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_4));
+        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_5));
+        mAdapter = new PicTxtAdapter(dataSet);
+        // 设置间隔
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
         mRecyclerView.setAdapter(mAdapter);
     }
 
