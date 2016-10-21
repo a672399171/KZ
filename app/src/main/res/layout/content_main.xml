@@ -1,23 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cn.zzuzl.kz.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <com.bigkoo.convenientbanner.ConvenientBanner
+    <com.jude.rollviewpager.RollPagerView
         android:id="@+id/convenientBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:canLoop="true" />
+        app:rollviewpager_play_delay="3000"/>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/nearbyRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:scrollbars="none" />
-</LinearLayout>
+        android:scrollbars="none"
+        android:layout_below="@+id/textView22"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="附近"
+        android:id="@+id/textView22"
+        android:layout_below="@+id/convenientBanner"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看更多>"
+        android:id="@+id/textView23"
+        android:layout_below="@+id/convenientBanner"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

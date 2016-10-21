@@ -1,11 +1,8 @@
 package cn.zzuzl.kz;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,15 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
-
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
-import com.bigkoo.convenientbanner.holder.Holder;
-
+import android.widget.Toast;
+import com.jude.rollviewpager.OnItemClickListener;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.IconHintView;
 import java.util.ArrayList;
 import java.util.List;
-
+import cn.zzuzl.kz.adapter.PicLoopAdapter;
 import cn.zzuzl.kz.adapter.PicTxtAdapter;
 import cn.zzuzl.kz.vo.PicTxtVO;
 
@@ -67,35 +62,26 @@ public class MainActivity extends AppCompatActivity
 
         initConvenientBanner();
 
-        initRecycleView();
+        initNearbyRecyclerView();
     }
 
     // 初始化图片轮播
     private void initConvenientBanner() {
-        ConvenientBanner convenientBanner = (ConvenientBanner) findViewById(R.id.convenientBanner);
-        List<Integer> localImages = new ArrayList<Integer>();
-        localImages.add(R.drawable.ic_test_0);
-        localImages.add(R.drawable.ic_test_1);
-        localImages.add(R.drawable.ic_test_2);
-        localImages.add(R.drawable.ic_test_3);
-        localImages.add(R.drawable.ic_test_4);
-        //自定义你的Holder，实现更多复杂的界面，不一定是图片翻页，其他任何控件翻页亦可。
-        convenientBanner.setPages(
-                new CBViewHolderCreator<LocalImageHolderView>() {
-                    @Override
-                    public LocalImageHolderView createHolder() {
-                        return new LocalImageHolderView();
-                    }
-                }, localImages)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
-                //设置指示器的方向
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT);
+        RollPagerView mRollViewPager = (RollPagerView) findViewById(R.id.convenientBanner);
+        mRollViewPager.setHintView(new IconHintView(this, R.drawable.ic_page_indicator_focused, R.drawable.ic_page_indicator));
+        mRollViewPager.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "Item " + position + " clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        mRollViewPager.setAdapter(new PicLoopAdapter(mRollViewPager));
     }
 
     // 初始化水平滚动列表
-    private void initRecycleView() {
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+    private void initNearbyRecyclerView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.nearbyRecyclerView);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -169,19 +155,4 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    class LocalImageHolderView implements Holder<Integer> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, final int position, Integer data) {
-            imageView.setImageResource(data);
-        }
-    }
 }
