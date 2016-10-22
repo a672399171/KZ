@@ -39,18 +39,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 切换到nfc activity
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this, NFCActivity.class);
-                startActivity(intent);
-                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -63,6 +51,8 @@ public class MainActivity extends AppCompatActivity
         initConvenientBanner();
 
         initNearbyRecyclerView();
+
+        initRecomRecyclerView();
     }
 
     // 初始化图片轮播
@@ -72,26 +62,49 @@ public class MainActivity extends AppCompatActivity
         mRollViewPager.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(MainActivity.this, "Item " + position + " clicked", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(MainActivity.this, "Item " + position + " clicked", Toast.LENGTH_SHORT).show();
+                // 切换到detail activity
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, DetailActivity.class);
+                startActivity(intent);
             }
         });
 
         mRollViewPager.setAdapter(new PicLoopAdapter(mRollViewPager));
     }
 
-    // 初始化水平滚动列表
+    // 初始化附近列表
     private void initNearbyRecyclerView() {
         mRecyclerView = (RecyclerView) findViewById(R.id.nearbyRecyclerView);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         List<PicTxtVO> dataSet = new ArrayList<PicTxtVO>();
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_0));
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_1));
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_2));
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_3));
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_4));
-        dataSet.add(new PicTxtVO("哈哈哈哈", R.drawable.ic_icon_5));
+        dataSet.add(new PicTxtVO("积木小屋", R.drawable.ic_icon_0));
+        dataSet.add(new PicTxtVO("白色惊艳", R.drawable.ic_icon_1));
+        dataSet.add(new PicTxtVO("他的时代", R.drawable.ic_icon_2));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_3));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_4));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_5));
+        mAdapter = new PicTxtAdapter(dataSet);
+        // 设置间隔
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
+        mRecyclerView.setAdapter(mAdapter);
+    }
+
+    // 初始化展品推荐列表
+    private void initRecomRecyclerView() {
+        mRecyclerView = (RecyclerView) findViewById(R.id.recomRecyclerView);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        List<PicTxtVO> dataSet = new ArrayList<PicTxtVO>();
+        dataSet.add(new PicTxtVO("积木小屋", R.drawable.ic_icon_0));
+        dataSet.add(new PicTxtVO("白色惊艳", R.drawable.ic_icon_1));
+        dataSet.add(new PicTxtVO("他的时代", R.drawable.ic_icon_2));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_3));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_4));
+        dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_5));
         mAdapter = new PicTxtAdapter(dataSet);
         // 设置间隔
         mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
@@ -139,7 +152,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
-
+            // 切换到nfc activity
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, ReadNfcActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

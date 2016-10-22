@@ -27,7 +27,8 @@
         <activity android:name=".NFCActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".OutTicketActivity" />
-        <activity android:name=".BuyTicketActivity"></activity>
+        <activity android:name=".BuyTicketActivity" />
+        <activity android:name=".ReadNfcActivity"></activity>
     </application>
 
 </manifest>
