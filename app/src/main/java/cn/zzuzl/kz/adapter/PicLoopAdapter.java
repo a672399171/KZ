@@ -14,10 +14,7 @@ import cn.zzuzl.kz.R;
  */
 public class PicLoopAdapter extends LoopPagerAdapter {
     private int[] imgs = {
-            R.drawable.ic_test_0,
-            R.drawable.ic_test_1,
-            R.drawable.ic_test_2,
-            R.drawable.ic_test_3,
+            R.drawable.ic_banner_0
     };
 
     public PicLoopAdapter(RollPagerView viewPager) {

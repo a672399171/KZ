@@ -24,6 +24,7 @@ public class ReadNfcActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_nfc);
 
+        setTitle("已读NFC");
         initRecyclerView();
     }
 
@@ -41,7 +42,7 @@ public class ReadNfcActivity extends AppCompatActivity {
         dataSet.add(new NfcItemVo(R.drawable.ic_icon_4, "战国酒樽", "距今：2600年", "藏于：河南省博物馆"));
         mAdapter = new NfcListAdapter(dataSet);
         // 设置间隔
-        // mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(50, false));
         mRecyclerView.setAdapter(mAdapter);
     }
 }

@@ -15,11 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import com.jude.rollviewpager.OnItemClickListener;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.hintview.IconHintView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import cn.zzuzl.kz.adapter.PicLoopAdapter;
 import cn.zzuzl.kz.adapter.PicTxtAdapter;
 import cn.zzuzl.kz.vo.PicTxtVO;
@@ -38,6 +41,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        setTitle("发现");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_5));
         mAdapter = new PicTxtAdapter(dataSet);
         // 设置间隔
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100, true));
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity
         dataSet.add(new PicTxtVO("敦煌艺术", R.drawable.ic_icon_5));
         mAdapter = new PicTxtAdapter(dataSet);
         // 设置间隔
-        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100));
+        mRecyclerView.addItemDecoration(new SpaceItemDecoration(100, true));
         mRecyclerView.setAdapter(mAdapter);
     }
 

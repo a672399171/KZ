@@ -9,14 +9,21 @@ import android.view.View;
  */
 public class SpaceItemDecoration extends RecyclerView.ItemDecoration {
     private int space;
+    private boolean vertical;
 
-    public SpaceItemDecoration(int space) {
+    public SpaceItemDecoration(int space, boolean vertical) {
         this.space = space;
+        this.vertical = vertical;
     }
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        // 设置左右间距
-        outRect.set(space / 2, 0, space / 2, 0);
+        if (vertical) {
+            // 设置上下间距
+            outRect.set(0, space / 2, 0, space / 2);
+        } else {
+            // 设置左右间距
+            outRect.set(space / 2, 0, space / 2, 0);
+        }
     }
 }
